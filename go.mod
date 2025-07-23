@@ -1,3 +1,5 @@
 module github.com/MatTwix/RE-minder-Bots
 
 go 1.23.6
+
+require github.com/joho/godotenv v1.5.1 // indirect
