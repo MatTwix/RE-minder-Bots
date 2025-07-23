@@ -15,13 +15,13 @@ type Config struct {
 }
 
 func LoadConfig() Config {
-	if os.Getenv("ENV") == "production" {
+	if os.Getenv("ENV") != "production" {
 		if err := godotenv.Load(".env"); err != nil {
 			panic("Error loading .env file")
 		}
 	}
 
-	port := os.Getenv("ENV")
+	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
