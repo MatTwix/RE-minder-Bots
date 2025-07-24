@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/MatTwix/RE-minder-Bots/config"
+	"github.com/MatTwix/RE-minder-Bots/migrations"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -28,4 +29,6 @@ func ConnectDB() {
 
 	DB = pool
 	log.Print("Connected to the database successfully")
+
+	migrations.Migrate(DB)
 }
