@@ -31,7 +31,8 @@ func CreateChatsTable(DB *pgxpool.Pool) {
 				platform VARCHAR(50) NOT NULL CHECK (platform IN ('telegram', 'discord', 'vk')),
 				chat_id BIGINT NOT NULL,
 				created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-				updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+				updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+				CONSTRAINT unique_chat UNIQUE (reminder_user_id, platform)
 			);
 		`)
 		if err != nil {
