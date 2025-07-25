@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/MatTwix/RE-minder-Bots/config"
+	"github.com/MatTwix/RE-minder-Bots/consumer"
 	"github.com/MatTwix/RE-minder-Bots/database"
 	"github.com/MatTwix/RE-minder-Bots/routes"
 	"github.com/gofiber/fiber/v3"
@@ -12,7 +13,9 @@ func main() {
 	cfg := config.LoadConfig()
 
 	database.ConnectDB()
-	defer database.DB.Close()
+	// defer database.DB.Close()
+
+	consumer.Start()
 
 	routes.SetupRoutes(app)
 
