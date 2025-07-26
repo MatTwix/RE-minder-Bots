@@ -16,6 +16,8 @@ func main() {
 	app := fiber.New()
 	cfg := config.LoadConfig()
 
+	config.InitValidator()
+
 	database.ConnectDB()
 	// defer database.DB.Close()
 
