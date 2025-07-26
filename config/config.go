@@ -13,6 +13,8 @@ type Config struct {
 	DatabaseURL    string
 	InternalAPIKey string
 
+	MainAppUrl string
+
 	RabbitMQUrl string
 }
 
@@ -34,6 +36,8 @@ func LoadConfig() Config {
 
 		DatabaseURL:    os.Getenv("DATABASE_URL"),
 		InternalAPIKey: os.Getenv("INTERNAL_API_KEY"),
+
+		MainAppUrl: os.Getenv("MAIN_APP_URL"),
 
 		RabbitMQUrl: os.Getenv("RABBITMQ_URL"),
 	}
