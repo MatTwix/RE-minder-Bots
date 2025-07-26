@@ -7,6 +7,7 @@ import (
 
 	"github.com/MatTwix/RE-minder-Bots/database"
 	"github.com/MatTwix/RE-minder-Bots/models"
+	"github.com/jackc/pgx/v5"
 )
 
 func GetChats(ctx context.Context, optCondition ...Condition) ([]models.Chat, error) {
@@ -37,4 +38,38 @@ func GetChats(ctx context.Context, optCondition ...Condition) ([]models.Chat, er
 	}
 
 	return chats, nil
+}
+
+func SetChat(ctx context.Context, reminderUserID int, platform string, chatID int64) (models.Chat, error) {
+	chat := models.Chat{
+		ReminderUserID: reminderUserID,
+		Platform:       platform,
+		ChatID:         chatID,
+	}
+
+	err := database.DB.QueryRow(ctx,
+		`UPDATE chats
+		SET chat_id = $1
+		WHERE reminder_user_id = $2 AND platform = $3
+		RETURNING id, created_at, updated_at`,
+		chatID, reminderUserID, platform).Scan(&chat.ID, &chat.CreatedAt, &chat.UpdatedAt)
+
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			err := database.DB.QueryRow(ctx,
+				`INSERT INTO chats
+				(reminder_user_id, platform, chat_id)
+				VALUES
+				($1, $2, $3)
+				RETURNING id, created_at, updated_at`,
+				reminderUserID, platform, chatID).Scan(&chat.ID, &chat.CreatedAt, &chat.UpdatedAt)
+
+			if err != nil {
+				return chat, errors.New("Error creating chat: " + err.Error())
+			}
+		}
+		return chat, errors.New("Error updating chat chat: " + err.Error())
+	}
+
+	return chat, nil
 }
