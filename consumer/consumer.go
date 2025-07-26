@@ -117,9 +117,25 @@ func Start() {
 					continue
 				}
 
-				shouldSend := platform == "discord" && settings.DiscordNotification || platform == "vk" && settings.TelegramNotification || platform == "telegram" && settings.TelegramNotification
+				shouldSend := false
 
-				log.Printf("Send: %v", shouldSend)
+				switch platform {
+				case "discord":
+					if settings.DiscordNotification {
+						shouldSend = true
+					}
+				case "vk":
+					if settings.TelegramNotification {
+						shouldSend = true
+					}
+				case "telegram":
+					if settings.TelegramNotification {
+						shouldSend = true
+					}
+				default:
+					log.Printf("Unkmown platform found for user %d: %s", task.UserID, platform)
+				}
+
 				if shouldSend {
 					err := botInstance.SendMessage(chat.ChatID, task.Message)
 					if err != nil {
@@ -127,7 +143,6 @@ func Start() {
 					}
 				}
 			}
-			log.Printf("Notifications for user %d sended!", task.UserID)
 
 			d.Ack(false)
 		}
