@@ -47,13 +47,18 @@ func (d *DiscordBot) Start() error {
 	return nil
 }
 
-func (d *DiscordBot) SendMessage(chatID int64, message string) error {
+func (d *DiscordBot) SendMessage(userID int64, message string) error {
 	if d.session == nil {
 		log.Println("Discord bot is not running, cannot send message")
 		return nil
 	}
 
-	_, err := d.session.ChannelMessageSend(strconv.Itoa(int(chatID)), message)
+	channel, err := d.session.UserChannelCreate(strconv.Itoa(int(userID)))
+	if err != nil {
+		return err
+	}
+
+	_, err = d.session.ChannelMessageSend(channel.ID, message)
 	if err != nil {
 		return err
 	}
