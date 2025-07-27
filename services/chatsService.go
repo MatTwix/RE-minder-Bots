@@ -67,8 +67,9 @@ func SetChat(ctx context.Context, reminderUserID int, platform string, chatID in
 			if err != nil {
 				return chat, errors.New("Error creating chat: " + err.Error())
 			}
+		} else {
+			return chat, errors.New("Error updating chat chat: " + err.Error())
 		}
-		return chat, errors.New("Error updating chat chat: " + err.Error())
 	}
 
 	return chat, nil
