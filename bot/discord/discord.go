@@ -2,11 +2,17 @@ package discord
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/MatTwix/RE-minder-Bots/bot"
+	"github.com/MatTwix/RE-minder-Bots/config"
+	"github.com/bwmarrin/discordgo"
 )
 
+var cfg = config.LoadConfig()
+
 type DiscordBot struct {
+	session *discordgo.Session
 }
 
 func New() *DiscordBot {
@@ -19,11 +25,39 @@ func (d *DiscordBot) Platform() string {
 
 func (d *DiscordBot) Start() error {
 	log.Println("Discord bot starting...")
+	if cfg.DiscordToken == "" {
+		log.Println("Discord token not provided, skipping bot start")
+		return nil
+	}
+
+	var err error
+
+	d.session, err = discordgo.New("Bot " + cfg.DiscordToken)
+	if err != nil {
+		return err
+	}
+
+	err = d.session.Open()
+	if err != nil {
+		return err
+	}
+
+	log.Println("Discord bot started successfully!")
+
 	return nil
 }
 
 func (d *DiscordBot) SendMessage(chatID int64, message string) error {
-	log.Printf("DISCORD: Sending message to %d, %s", chatID, message)
+	if d.session == nil {
+		log.Println("Discord bot is not running, cannot send message")
+		return nil
+	}
+
+	_, err := d.session.ChannelMessageSend(strconv.Itoa(int(chatID)), message)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

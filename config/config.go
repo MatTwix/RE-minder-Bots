@@ -13,6 +13,9 @@ type Config struct {
 	DatabaseURL    string
 	InternalAPIKey string
 
+	DiscordToken string
+	VKToken      string
+
 	MainAppUrl string
 
 	RabbitMQUrl string
@@ -36,6 +39,9 @@ func LoadConfig() Config {
 
 		DatabaseURL:    os.Getenv("DATABASE_URL"),
 		InternalAPIKey: os.Getenv("INTERNAL_API_KEY"),
+
+		DiscordToken: os.Getenv("DISCORD_TOKEN"),
+		VKToken:      os.Getenv("VK_TOKEN"),
 
 		MainAppUrl: os.Getenv("MAIN_APP_URL"),
 
