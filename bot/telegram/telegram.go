@@ -67,7 +67,7 @@ func (t *TelegramBot) startCommandHandler(c telebot.Context) error {
 
 	platform := t.Platform()
 
-	_, err = services.SetChat(context.Background(), userID, platform, c.Chat().ID)
+	_, err = services.SetChat(context.Background(), userID, platform, strconv.Itoa(int(c.Chat().ID)))
 	if err != nil {
 		log.Printf("Failed to create chat link for user %d: %v", userID, err)
 		return c.Send("Internat server error. Please, try later")
@@ -77,13 +77,18 @@ func (t *TelegramBot) startCommandHandler(c telebot.Context) error {
 	return c.Send(successMessage)
 }
 
-func (t *TelegramBot) SendMessage(chatID int64, message string) error {
+func (t *TelegramBot) SendMessage(chatID string, message string) error {
 	if t.b == nil {
 		return errors.New("telegram bot is not initialized")
 	}
 
-	recipient := &telebot.User{ID: chatID}
-	_, err := t.b.Send(recipient, message)
+	recipientID, err := strconv.Atoi(chatID)
+	if err != nil {
+		return errors.New("invalid chat id")
+	}
+
+	recipient := &telebot.User{ID: int64(recipientID)}
+	_, err = t.b.Send(recipient, message)
 	return err
 }
 

@@ -2,7 +2,6 @@ package discord
 
 import (
 	"log"
-	"strconv"
 
 	"github.com/MatTwix/RE-minder-Bots/bot"
 	"github.com/MatTwix/RE-minder-Bots/config"
@@ -47,13 +46,13 @@ func (d *DiscordBot) Start() error {
 	return nil
 }
 
-func (d *DiscordBot) SendMessage(userID int64, message string) error {
+func (d *DiscordBot) SendMessage(userID string, message string) error {
 	if d.session == nil {
 		log.Println("Discord bot is not running, cannot send message")
 		return nil
 	}
 
-	channel, err := d.session.UserChannelCreate(strconv.Itoa(int(userID)))
+	channel, err := d.session.UserChannelCreate(userID)
 	if err != nil {
 		return err
 	}

@@ -8,8 +8,8 @@ import (
 
 type ChatInput struct {
 	ReminderUserID int    `json:"reminder_user_id" validate:"required,number"`
-	Platform       string `json:"platform" validate:"required,oneof=discord vk telegram"`
-	ChatID         int64  `json:"chat_id" validate:"required"`
+	Platform       string `json:"platform" validate:"required,oneof=discord google telegram"`
+	ChatID         string `json:"chat_id" validate:"required,max=255"`
 }
 
 func GetChats(c fiber.Ctx) error {

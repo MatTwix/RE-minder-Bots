@@ -28,8 +28,8 @@ func CreateChatsTable(DB *pgxpool.Pool) {
 			CREATE TABLE chats (
 				id SERIAL PRIMARY KEY,
 				reminder_user_id BIGINT NOT NULL,
-				platform VARCHAR(50) NOT NULL CHECK (platform IN ('telegram', 'discord', 'vk')),
-				chat_id BIGINT NOT NULL,
+				platform VARCHAR(50) NOT NULL CHECK (platform IN ('telegram', 'discord', 'google')),
+				chat_id VARCHAR(255) NOT NULL,
 				created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 				updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 				CONSTRAINT unique_chat UNIQUE (reminder_user_id, platform)

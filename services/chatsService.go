@@ -40,7 +40,7 @@ func GetChats(ctx context.Context, optCondition ...Condition) ([]models.Chat, er
 	return chats, nil
 }
 
-func SetChat(ctx context.Context, reminderUserID int, platform string, chatID int64) (models.Chat, error) {
+func SetChat(ctx context.Context, reminderUserID int, platform, chatID string) (models.Chat, error) {
 	chat := models.Chat{
 		ReminderUserID: reminderUserID,
 		Platform:       platform,
