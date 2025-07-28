@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/MatTwix/RE-minder-Bots/bot"
 	_ "github.com/MatTwix/RE-minder-Bots/bot/discord"
+	_ "github.com/MatTwix/RE-minder-Bots/bot/google"
 	_ "github.com/MatTwix/RE-minder-Bots/bot/telegram"
 	"github.com/MatTwix/RE-minder-Bots/config"
 	"github.com/MatTwix/RE-minder-Bots/consumer"

@@ -20,6 +20,12 @@ type Config struct {
 	MainAppUrl string
 
 	RabbitMQUrl string
+
+	SMTPHost      string
+	SMTPPort      string
+	SMTPUsername  string
+	SMTPPassword  string
+	SMTPFromEmail string
 }
 
 func LoadConfig() Config {
@@ -48,5 +54,11 @@ func LoadConfig() Config {
 		MainAppUrl: os.Getenv("MAIN_APP_URL"),
 
 		RabbitMQUrl: os.Getenv("RABBITMQ_URL"),
+
+		SMTPHost:      os.Getenv("SMTP_HOST"),
+		SMTPPort:      os.Getenv("SMTP_PORT"),
+		SMTPUsername:  os.Getenv("SMTP_USERNAME"),
+		SMTPPassword:  os.Getenv("SMTP_PASSWORD"),
+		SMTPFromEmail: os.Getenv("SMTP_FROM_EMAIL"),
 	}
 }
