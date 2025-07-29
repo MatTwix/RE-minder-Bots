@@ -5,7 +5,6 @@ go 1.24.0
 toolchain go1.24.5
 
 require (
-	github.com/SevereCloud/vksdk/v2 v2.17.0
 	github.com/bwmarrin/discordgo v0.29.0
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/gofiber/fiber/v3 v3.0.0-beta.5
@@ -34,8 +33,6 @@ require (
 	github.com/tinylib/msgp v1.3.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.64.0 // indirect
-	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
-	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	golang.org/x/crypto v0.40.0 // indirect
 	golang.org/x/net v0.42.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
