@@ -7,8 +7,9 @@ import (
 )
 
 type Config struct {
-	ENV  string
-	Port string
+	ENV                string
+	Port               string
+	RateLimiterEnabled bool
 
 	DatabaseURL    string
 	InternalAPIKey string
@@ -41,8 +42,9 @@ func LoadConfig() Config {
 	}
 
 	return Config{
-		ENV:  os.Getenv("ENV"),
-		Port: port,
+		ENV:                os.Getenv("ENV"),
+		Port:               port,
+		RateLimiterEnabled: os.Getenv("RATE_LIMITER_ENABLED") == "true",
 
 		DatabaseURL:    os.Getenv("DATABASE_URL"),
 		InternalAPIKey: os.Getenv("INTERNAL_API_KEY"),
